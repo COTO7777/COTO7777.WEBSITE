@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+　<meta charset="UTF-8">
+　<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body bgcolor="bc8f8f">
+　<p>Japanese Traditional Food</p>
+  <p><front color="#add8e6"></front></p>
+  <p>sushi</p>
+<br>
+  <p>"The History of Sushi"</p>
+  <p><font color="blue" size="4"></font></p>
+<br>
+ <tr></tr>
+
+ 
+</body>
+</html>

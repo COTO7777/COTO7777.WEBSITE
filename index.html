@@ -2,105 +2,37 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Taipei Main Station 1F Evacuation Map</title>
+  <title>Evacuation Map</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Leaflet -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  />
-
+  <link rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <style>
-    html, body {
+    html, body, #map {
       height: 100%;
       margin: 0;
-    }
-
-    #map {
-      height: 100vh;
-      width: 100vw;
-    }
-
-    /* 上部タイトル */
-    .title-box {
-      position: fixed;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.9);
-      padding: 10px 16px;
-      border-radius: 12px;
-      font-size: 14px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      z-index: 1000;
-    }
-
-    /* 戻るリンク */
-    .back-link {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background: white;
-      padding: 8px 14px;
-      border-radius: 12px;
-      font-size: 13px;
-      text-decoration: none;
-      color: black;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      z-index: 1000;
-    }
-
-    .back-link:hover {
-      background: #f0f0f0;
     }
   </style>
 </head>
 <body>
 
-  <div class="title-box">
-    🗺 台北駅1F 避難経路図（Taipei Main Station 1F）
-  </div>
+<div id="map"></div>
 
-  <a class="back-link" href="index.html">
-    ← トップに戻る
-  </a>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  const imageWidth = 3600;
+  const imageHeight = 1800;
 
-  <div id="map"></div>
+  const map = L.map('map', {
+    crs: L.CRS.Simple
+  });
 
-  <!-- Leaflet -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    /* 画像用の仮想座標 */
-    const bounds = [[0, 0], [1000, 2000]];
+  L.imageOverlay(
+    'images/taipei_1f_evacuation.jpg',
+    [[0, 0], [imageHeight, imageWidth]]
+  ).addTo(map);
 
-    const map = L.map('map', {
-      crs: L.CRS.Simple,
-      minZoom: -1,
-      maxZoom: 2
-    });
-
-    /* 画像オーバーレイ */
-    L.imageOverlay(
-      'images/taipei_1f_evacuation.png',
-      bounds
-    ).addTo(map);
-
-    map.fitBounds(bounds);
-
-    /* 出口マーカー例（位置は後で調整） */
-    L.marker([200, 1800]).addTo(map)
-      .bindPopup('East Exit（東出口）');
-
-    L.marker([800, 300]).addTo(map)
-      .bindPopup('West Exit（西出口）');
-
-    /* 現在地例 */
-    L.circleMarker([500, 1000], {
-      radius: 8
-    }).addTo(map)
-      .bindPopup('You are here');
-  </script>
+  map.fitBounds([[0, 0], [imageHeight, imageWidth]]);
+</script>
 
 </body>
 </html>

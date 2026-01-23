@@ -1,38 +1,93 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>Evacuation Map</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <meta charset="UTF-8" />
+  <title>Taipei Evacuation Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+
   <style>
-    html, body, #map {
+    /* 画面全体をマップに */
+    html, body {
       height: 100%;
       margin: 0;
+    }
+
+    #map {
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* 上に重ねる情報バー */
+    .info-box {
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      z-index: 1000;
+    }
+
+    /* 凡例 */
+    .legend {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: white;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      z-index: 1000;
+    }
+
+    .legend div {
+      margin-bottom: 4px;
     }
   </style>
 </head>
 <body>
 
-<div id="map"></div>
+  <div class="info-box">
+    🗺 台北駅周辺 避難経路マップ｜日本の高校生が作成
+  </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-  const imageWidth = 3600;
-  const imageHeight = 1800;
+  <div id="map"></div>
 
-  const map = L.map('map', {
-    crs: L.CRS.Simple
-  });
+  <div class="legend">
+    <div>🟥 避難所</div>
+    <div>🟦 駅</div>
+    <div>🟩 病院</div>
+  </div>
 
-  L.imageOverlay(
-    'images/taipei_1f_evacuation.jpg',
-    [[0, 0], [imageHeight, imageWidth]]
-  ).addTo(map);
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // 台北駅あたり
+    const map = L.map('map').setView([25.0478, 121.5170], 16);
 
-  map.fitBounds([[0, 0], [imageHeight, imageWidth]]);
-</script>
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // マーカー例
+    L.marker([25.0478, 121.5170])
+      .addTo(map)
+      .bindPopup('台北駅');
+
+    L.marker([25.0452, 121.5169])
+      .addTo(map)
+      .bindPopup('避難所（例）');
+  </script>
 
 </body>
 </html>

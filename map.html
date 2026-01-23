@@ -2,44 +2,40 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>台北駅 周辺避難地図</title>
+  <title>台北駅 周辺避難マップ</title>
 
-  <!-- LeafletのCSS（地図の見た目） -->
+  <!-- Leaflet CSS -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  />
+  >
 
-  <!-- 自分のCSS -->
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <h1>台北駅 周辺避難地図</h1>
+  <h1>台北駅 周辺避難マップ</h1>
 
-  <!-- 👇 ここが地図を出す場所（超重要） -->
+  <!-- 地図 -->
   <div id="map"></div>
 
   <p class="back">
     <a href="index.html">← トップに戻る</a>
   </p>
 
-  <!-- LeafletのJS（地図を動かす） -->
+  <!-- Leaflet JS -->
   <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
   </script>
 
-  <!-- 地図の設定 -->
   <script>
-    // 台北駅の位置
     const map = L.map('map').setView([25.0478, 121.5170], 15);
 
-    // 地図のタイル（軽い＆無料）
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap'
     }).addTo(map);
 
-    // マーカー（ピン）
     L.marker([25.0478, 121.5170])
       .addTo(map)
       .bindPopup('台北駅');

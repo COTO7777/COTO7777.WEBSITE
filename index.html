@@ -1,31 +1,33 @@
 <!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>台北駅 避難案内</title>
+  <title>台北駅 避難案内図</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- トップページ（避難経路画像） -->
   <header>
-    <h1>台北駅 避難経路案内</h1>
-    <img src="images/taipei_top.jpg" alt="台北駅避難案内" class="top-image">
+    <h1>台北駅 避難案内図</h1>
   </header>
 
-  <!-- リンク部分 -->
-  <nav>
-    <a href="map.html">▶ 周辺の避難マップを見る</a>
-  </nav>
+  <!-- 避難案内の図 -->
+  <main>
+    <div class="map-diagram">
+      <div class="box">台北駅 改札</div>
+      <div class="arrow">↓</div>
+      <div class="box">地下通路</div>
+      <div class="arrow">↓</div>
+      <div class="box safe">屋外避難場所</div>
+    </div>
+  </main>
 
-  <!-- 周辺地図 -->
-  <section id="map.html">
-    <h2>台北駅周辺の避難マップ</h2>
-    <img src="taipei_area_map.jpg" alt="台北駅周辺の地図" class="map-image">
-  </section>
+  <!-- 周辺地図へのリンク -->
+  <nav>
+    <a href="map.html" class="map-link">▶ 周辺の避難マップを見る</a>
+  </nav>
 
 </body>
 </html>
-
-

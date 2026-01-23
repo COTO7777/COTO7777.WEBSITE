@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <title>Taipei Evacuation Map</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>Taipei Main Station 1F Evacuation Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Leaflet CSS -->
+  <!-- Leaflet -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   />
 
   <style>
-    /* 画面全体をマップに */
     html, body {
       height: 100%;
       margin: 0;
@@ -23,8 +22,8 @@
       width: 100vw;
     }
 
-    /* 上に重ねる情報バー */
-    .info-box {
+    /* 上部タイトル */
+    .title-box {
       position: fixed;
       top: 10px;
       left: 50%;
@@ -37,56 +36,70 @@
       z-index: 1000;
     }
 
-    /* 凡例 */
-    .legend {
+    /* 戻るリンク */
+    .back-link {
       position: fixed;
       bottom: 20px;
-      right: 20px;
+      left: 20px;
       background: white;
-      padding: 10px 14px;
+      padding: 8px 14px;
       border-radius: 12px;
       font-size: 13px;
+      text-decoration: none;
+      color: black;
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
       z-index: 1000;
     }
 
-    .legend div {
-      margin-bottom: 4px;
+    .back-link:hover {
+      background: #f0f0f0;
     }
   </style>
 </head>
 <body>
 
-  <div class="info-box">
-    🗺 台北駅周辺 避難経路マップ｜日本の高校生が作成
+  <div class="title-box">
+    🗺 台北駅1F 避難経路図（Taipei Main Station 1F）
   </div>
+
+  <a class="back-link" href="index.html">
+    ← トップに戻る
+  </a>
 
   <div id="map"></div>
 
-  <div class="legend">
-    <div>🟥 避難所</div>
-    <div>🟦 駅</div>
-    <div>🟩 病院</div>
-  </div>
-
-  <!-- Leaflet JS -->
+  <!-- Leaflet -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    // 台北駅あたり
-    const map = L.map('map').setView([25.0478, 121.5170], 16);
+    /* 画像用の仮想座標 */
+    const bounds = [[0, 0], [1000, 2000]];
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+    const map = L.map('map', {
+      crs: L.CRS.Simple,
+      minZoom: -1,
+      maxZoom: 2
+    });
 
-    // マーカー例
-    L.marker([25.0478, 121.5170])
-      .addTo(map)
-      .bindPopup('台北駅');
+    /* 画像オーバーレイ */
+    L.imageOverlay(
+      'images/taipei_1f_evacuation.png',
+      bounds
+    ).addTo(map);
 
-    L.marker([25.0452, 121.5169])
-      .addTo(map)
-      .bindPopup('避難所（例）');
+    map.fitBounds(bounds);
+
+    /* 出口マーカー例（位置は後で調整） */
+    L.marker([200, 1800]).addTo(map)
+      .bindPopup('East Exit（東出口）');
+
+    L.marker([800, 300]).addTo(map)
+      .bindPopup('West Exit（西出口）');
+
+    /* 現在地例 */
+    L.circleMarker([500, 1000], {
+      radius: 8
+    }).addTo(map)
+      .bindPopup('You are here');
   </script>
 
 </body>
